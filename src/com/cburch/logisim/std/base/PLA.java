@@ -310,6 +310,12 @@ class PLA extends InstanceFactory {
 		state.setPort(1, out, 1);
 	}
 
+	// TODO: Call this on changes in truth table to update circuit
+	//       state
+	void repropagate() {
+		fireComponentInvalidated(new ComponentEvent(this));
+	}
+
 	public Value computeOutConnectorValue(TruthTable tt, Value inValue, BitWidth outWidth) {
 		int out = 0;
 		int input = inValue.toIntValue();
