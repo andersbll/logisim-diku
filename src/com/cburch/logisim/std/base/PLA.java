@@ -46,16 +46,7 @@ import com.cburch.logisim.gui.main.Frame;
 import com.cburch.logisim.util.StringGetter;
 import com.cburch.logisim.proj.Project;
 
-import javax.swing.JButton;
-
 import com.cburch.logisim.std.base.pla.*;
-
-import org.w3c.dom.*;
-import java.io.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-import javax.xml.parsers.*;
  
 class PLA extends InstanceFactory {
 	private static final int IN_PORT = 0;
@@ -84,9 +75,9 @@ class PLA extends InstanceFactory {
 		}
 		
 		@Override
-		public java.awt.Component getCellEditor(Window source, TruthTable value) {
+		public java.awt.Component getCellEditor(Window source, TruthTable tt) {
 			ContentsCell editTruthTableContentCell = new ContentsCell((Frame)source,
-			                                                          (TruthTable)value);
+			                                                          tt);
 			editTruthTableContentCell.mouseClicked(null); // this cannot be called in constructor
 			return editTruthTableContentCell;
 		}
@@ -115,11 +106,10 @@ class PLA extends InstanceFactory {
 		
 		@Override
 		public TruthTable parse(String str) {
-			TruthTable tt = new TruthTable(2, 2);
+			TruthTable tt = null;
 			String[] lines = str.split("\n");
 			int r = 0;
 			for(String row : lines) {
-				tt.addNewRow();
 				// Split up the string
 				String andBits, orBits, comment;
 				int i = row.indexOf(",");
@@ -128,6 +118,10 @@ class PLA extends InstanceFactory {
 				orBits = row.substring(i+1, j);
 				comment = row.substring(j+1, row.length());
 				
+				if(tt == null) {
+					tt = new TruthTable(andBits.length(), orBits.length());
+				}
+				tt.addNewRow();
 				// Parse fields
 				for(int c=0;c<andBits.length();c++){
 					tt.setInBit(r, c, andBits.charAt(c));
@@ -170,12 +164,9 @@ class PLA extends InstanceFactory {
 	private static class ContentsCell extends JLabel implements MouseListener {
 		TruthTable truthTable;
 		Frame parent;
-		int tmpTTIns, tmpTTOuts;
 		ContentsCell(Frame parent, TruthTable truthTable) {
 			super(Strings.get("plaTruthTableEdit"));
 			this.truthTable = truthTable;
-			this.tmpTTIns = truthTable.getInSize();
-			this.tmpTTOuts = truthTable.getOutSize();
 			this.parent = parent;
 			addMouseListener(this);
 			//mouseClicked(null);
@@ -184,7 +175,7 @@ class PLA extends InstanceFactory {
 		public void mouseClicked(MouseEvent e) {
 			if(truthTable == null) return;
 			TruthTableEditorDialog dialog = new TruthTableEditorDialog(this.parent);
-			dialog.showAndSet(truthTable, tmpTTIns, tmpTTOuts);
+			dialog.showAndSet(truthTable, truthTable.tmpIns, truthTable.tmpOuts);
 			dialog.toFront();
 		}
 
@@ -194,12 +185,13 @@ class PLA extends InstanceFactory {
 		public void mouseExited(MouseEvent e) { }
 	}
 	
-	private static class PLAAttributes extends AbstractAttributeSet {
+	private class PLAAttributes extends AbstractAttributeSet {
 		private String label = "PLA";
 		private Font labelFont = StdAttr.DEFAULT_LABEL_FONT;
 		private BitWidth widthIn = BitWidth.create(2);
 		private BitWidth widthOut = BitWidth.create(2);
 		private TruthTable truthTable = new TruthTable(2,2);
+
 		@Override
 		protected void copyInto(AbstractAttributeSet destObj) {
 			PLAAttributes dest = (PLAAttributes) destObj;
@@ -230,10 +222,10 @@ class PLA extends InstanceFactory {
 		public <V> void setValue(Attribute<V> attr, V value) {
 			if (attr == ATTR_IN_WIDTH) {
 				widthIn = (BitWidth) value;
-				//				editTruthTableContentCell.tmpTTIns = widthIn.getWidth();
+				truthTable.tmpIns = widthIn.getWidth();
 			} else if (attr == ATTR_OUT_WIDTH) {
 				widthOut = (BitWidth) value;
-				//				editTruthTableContentCell.tmpTTIns = widthIn.getWidth();
+				truthTable.tmpOuts = widthOut.getWidth();
 			} else if (attr == ATTR_TRUTH_TABLE) {
 				truthTable = (TruthTable) value;
 			} else if (attr == StdAttr.LABEL) {
@@ -277,6 +269,11 @@ class PLA extends InstanceFactory {
 
 	@Override
 	protected void configureNewInstance(Instance instance) {
+		super.configureNewInstance(instance);
+		TruthTable tt = instance.getAttributeValue(ATTR_TRUTH_TABLE);
+		PLAAttributes attributes = (PLAAttributes)instance.getAttributeSet();
+		attributes.truthTable = tt.clone();
+		
 		instance.addAttributeListener();
 		updatePorts(instance);
 	}
@@ -306,7 +303,6 @@ class PLA extends InstanceFactory {
 
 	@Override
 	public void propagate(InstanceState state) {
-		//BitWidth inWidth = state.getAttributeValue(ATTR_IN_WIDTH);
 		BitWidth outWidth = state.getAttributeValue(ATTR_OUT_WIDTH);
 		TruthTable truthTable = state.getAttributeValue(ATTR_TRUTH_TABLE);
 		Value input = state.getPort(IN_PORT);

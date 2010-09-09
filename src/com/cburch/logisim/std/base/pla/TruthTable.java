@@ -8,6 +8,8 @@ public class TruthTable  implements Serializable{
 	private List<TruthTableRow> rows;
 	private int inSize;
 	private int outSize;	
+
+	public int tmpIns, tmpOuts;
 	
 	public TruthTable(int inSz, int outSz){
 		assert inSz>0;
@@ -16,6 +18,8 @@ public class TruthTable  implements Serializable{
 		rows = new ArrayList<TruthTableRow>();
 		inSize = inSz;
 		outSize = outSz;
+		tmpIns = inSize;
+		tmpOuts = outSz;
 	}
 	
 	public TruthTable clone(){
