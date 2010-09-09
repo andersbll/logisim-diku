@@ -39,6 +39,7 @@ public class Base extends Library {
 			new AddTool(Clock.FACTORY),
 //			new AddTool(BitExtender.FACTORY),
 			new AddTool(Text.FACTORY),
+			new AddTool(PLA.FACTORY)
 		});
 	}
 
