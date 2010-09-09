@@ -26,7 +26,7 @@ public class Builtin extends Library {
 			new Base(),
 			new Gates(),
 			new Plexers(),
-//			new Arithmetic(),
+			new Arithmetic(),
 			new Memory(),
 			new Io(),
 			new Legacy(),
