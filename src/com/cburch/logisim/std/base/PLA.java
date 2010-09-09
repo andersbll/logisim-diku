@@ -106,6 +106,8 @@ class PLA extends InstanceFactory {
 		
 		@Override
 		public TruthTable parse(String str) {
+			// TODO: do this in a better way or make it unnecessary
+			if(str.equals("")) return new TruthTable (2,2);
 			TruthTable tt = null;
 			String[] lines = str.split("\n");
 			int r = 0;
@@ -310,11 +312,11 @@ class PLA extends InstanceFactory {
 		state.setPort(1, out, 1);
 	}
 
-	// TODO: Call this on changes in truth table to update circuit
-	//       state
-	void repropagate() {
-		fireComponentInvalidated(new ComponentEvent(this));
-	}
+	// // TODO: Call this on changes in truth table to update circuit
+	// //       state
+	// void repropagate() {
+	// 	fireComponentInvalidated(new ComponentEvent(this));
+	// }
 
 	public Value computeOutConnectorValue(TruthTable tt, Value inValue, BitWidth outWidth) {
 		int out = 0;
