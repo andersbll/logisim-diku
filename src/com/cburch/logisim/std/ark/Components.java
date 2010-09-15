@@ -26,10 +26,10 @@ public class Components extends Library {
     }
     
 //    public String getName() { return Components.class.getName(); }
-    public String getDisplayName() { return "MIPS Shizzle"; }
+    public String getDisplayName() { return "MIPS"; }
 //    public List getTools() { return tools; }
 
-    public String getName() { return "SHIZZLE"; }
+    public String getName() { return "MIPS"; }
 
 //	public String getDisplayName() { return Strings.get("baseLibrary"); }
 
