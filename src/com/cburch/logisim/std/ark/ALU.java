@@ -50,6 +50,7 @@ public class ALU extends ManagedComponent
             break;
         case 0x2:
             ans = A + B;
+            break;
         case 0x6:
             ans = A - B;
             break;
