@@ -845,6 +845,7 @@ class Program32 extends ManagedComponent {
 		new Br("bne", 0x5);
 		new Bz("blez", 0x6);
 		new Bz("bgtz", 0x7);
+		new ArithImm("addi", 0x8, true);
 		new ArithImm("addiu", 0x9, true);
 		new ArithImm("andi", 0xc, false);
 		new ArithImm("ori", 0xd, false);
