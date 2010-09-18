@@ -281,8 +281,8 @@ class PLA extends InstanceFactory {
 	}
 	
 	private void updatePorts(Instance instance) {
-		Port[] ps = { new Port(-20, 0, Port.INPUT, ATTR_IN_WIDTH),
-		              new Port(20, 0, Port.OUTPUT, ATTR_OUT_WIDTH) };
+		Port[] ps = { new Port(-40, 0, Port.INPUT, ATTR_IN_WIDTH),
+		              new Port(30, 0, Port.OUTPUT, ATTR_OUT_WIDTH) };
 		instance.setPorts(ps);
 	}
 
@@ -357,7 +357,7 @@ class PLA extends InstanceFactory {
 
 	@Override
 	public Bounds getOffsetBounds(AttributeSet attrs) {
-		Bounds ret = Bounds.create(-20, -20, 40, 40);
+		Bounds ret = Bounds.create(-40, -40, 70, 80);
 		return ret;
 	}
 
