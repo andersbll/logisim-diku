@@ -1,4 +1,4 @@
-package com.cburch.logisim.std.ark;
+package com.cburch.logisim.std.mips;
 
 import java.awt.Color;
 import java.awt.Image;

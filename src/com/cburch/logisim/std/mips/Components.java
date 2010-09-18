@@ -1,4 +1,4 @@
-package com.cburch.logisim.std.ark; // com.cburch.incr;
+package com.cburch.logisim.std.mips; // com.cburch.incr;
 
 import java.util.Arrays;
 import java.util.List;

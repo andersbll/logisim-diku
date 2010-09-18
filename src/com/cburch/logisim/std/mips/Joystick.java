@@ -1,7 +1,5 @@
-package com.cburch.logisim.std.ark;
+package com.cburch.logisim.std.mips;
 
-import java.awt.Font;
-import java.awt.Color;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;

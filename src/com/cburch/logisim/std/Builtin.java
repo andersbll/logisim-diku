@@ -7,13 +7,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.cburch.logisim.std.ark.*;
 import com.cburch.logisim.legacy.Legacy;
 import com.cburch.logisim.std.arith.Arithmetic;
 import com.cburch.logisim.std.base.Base;
 import com.cburch.logisim.std.gates.Gates;
 import com.cburch.logisim.std.io.Io;
 import com.cburch.logisim.std.memory.Memory;
+import com.cburch.logisim.std.mips.*;
 import com.cburch.logisim.std.plexers.Plexers;
 import com.cburch.logisim.tools.Library;
 import com.cburch.logisim.tools.Tool;

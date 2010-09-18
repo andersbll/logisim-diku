@@ -1,5 +1,5 @@
 // from Carl Burch's com.cburch.incr.Incrementer 
-package com.cburch.logisim.std.ark;
+package com.cburch.logisim.std.mips;
 
 import com.cburch.logisim.circuit.CircuitState;
 import com.cburch.logisim.comp.*;
