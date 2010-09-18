@@ -179,7 +179,8 @@ class RegisterFile32 extends ManagedComponent {
 	static final int P_WADDR = 5;
 	static final int P_RADDR1 = 6;
 	static final int P_RADDR2 = 7;
-	static final int NUM_PINS = 8;
+	static final int P_CLEAR = 8;
+	static final int NUM_PINS = 9;
     
     private RegisterFile32(Location loc, AttributeSet attrs) {
         super(loc, attrs, NUM_PINS);
@@ -194,8 +195,9 @@ class RegisterFile32 extends ManagedComponent {
         setEnd(P_WE,    loc.translate(left+CHIP_WIDTH/2-40, bottom), BitWidth.ONE, EndData.INPUT_ONLY);
         setEnd(P_CLK,   loc.translate(left, bottom-10), BitWidth.ONE, EndData.INPUT_ONLY);
         setEnd(P_WADDR, loc.translate(left+CHIP_WIDTH/2-10, bottom), DEPTH, EndData.INPUT_ONLY);
-        setEnd(P_RADDR1,loc.translate(left+CHIP_WIDTH/2+30, bottom), DEPTH, EndData.INPUT_ONLY);
-        setEnd(P_RADDR2,loc.translate(left+CHIP_WIDTH/2+50, bottom), DEPTH, EndData.INPUT_ONLY);
+        setEnd(P_RADDR1,loc.translate(left+CHIP_WIDTH/2+20, bottom), DEPTH, EndData.INPUT_ONLY);
+        setEnd(P_RADDR2,loc.translate(left+CHIP_WIDTH/2+40, bottom), DEPTH, EndData.INPUT_ONLY);
+        setEnd(P_CLEAR, loc.translate(left+CHIP_WIDTH/2+70, bottom), BitWidth.ONE, EndData.INPUT_ONLY);
 
         attrs.addAttributeListener(myListener);
     }
@@ -253,6 +255,10 @@ class RegisterFile32 extends ManagedComponent {
 			else
 				throw new IllegalArgumentException("Write address invalid: Please email kwalsh@cs and tell him!");
 		}
+		int clear = addr(circuitState, P_CLEAR);
+		if(clear>0) {
+			state.reset(zero);
+		}
 		int a1 = addr(circuitState, P_RADDR1);
 		int a2 = addr(circuitState, P_RADDR2);
 		if (a1 >= NUM_REGISTERS || a2 >= NUM_REGISTERS)
@@ -300,6 +306,7 @@ class RegisterFile32 extends ManagedComponent {
         context.drawPin(this, P_RDATA1);
         context.drawPin(this, P_RADDR2);
         context.drawPin(this, P_RDATA2);
+        context.drawPin(this, P_CLEAR);
 
 		Graphics g = context.getGraphics();
 		Bounds bds = getBounds();
@@ -321,9 +328,11 @@ class RegisterFile32 extends ManagedComponent {
 				GraphicsUtil.H_CENTER, GraphicsUtil.V_BOTTOM);
 		GraphicsUtil.drawText(g, "rW", left+CHIP_WIDTH/2-10, bottom-1,
 				GraphicsUtil.H_CENTER, GraphicsUtil.V_BOTTOM);
-		GraphicsUtil.drawText(g, "rA", left+CHIP_WIDTH/2+30, bottom-1,
+		GraphicsUtil.drawText(g, "rA", left+CHIP_WIDTH/2+20, bottom-1,
 				GraphicsUtil.H_CENTER, GraphicsUtil.V_BOTTOM);
-		GraphicsUtil.drawText(g, "rB", left+CHIP_WIDTH/2+50, bottom-1,
+		GraphicsUtil.drawText(g, "rB", left+CHIP_WIDTH/2+40, bottom-1,
+				GraphicsUtil.H_CENTER, GraphicsUtil.V_BOTTOM);
+		GraphicsUtil.drawText(g, "clr", left+CHIP_WIDTH/2+70, bottom-1,
 				GraphicsUtil.H_CENTER, GraphicsUtil.V_BOTTOM);
 
 		// draw some rectangles 
