@@ -48,8 +48,8 @@ abstract class Mem extends InstanceFactory {
     // port-related constants
     static final int DATA = 0;
     static final int ADDR = 1;
-    static final int CS = 2;
-    static final int MEM_INPUTS = 3;
+//    static final int CS = 2;
+    static final int MEM_INPUTS = 2;
 
     // other constants
     static final int DELAY = 10;
@@ -61,7 +61,7 @@ abstract class Mem extends InstanceFactory {
         currentInstanceFiles = new WeakHashMap();
         setInstancePoker(MemPoker.class);
 
-        setOffsetBounds(Bounds.create(-140, -40, 140, 80));
+        setOffsetBounds(Bounds.create(-140, -80, 140, 140));
     }
     
     abstract void configurePorts(Instance instance);
@@ -78,10 +78,10 @@ abstract class Mem extends InstanceFactory {
     void configureStandardPorts(Instance instance, Port[] ps) {
         ps[DATA] = new Port(   0,  0, Port.INOUT, 32 /*DATA_ATTR */);
         ps[ADDR] = new Port(-140,  0, Port.INPUT, ADDR_ATTR);
-        ps[CS]   = new Port( -90, 40, Port.INPUT, 4);
+//        ps[CS]   = new Port( -90, 40, Port.INPUT, 4);
         ps[DATA].setToolTip(new SimpleStringGetter("Data: value loaded at address"));
         ps[ADDR].setToolTip(new SimpleStringGetter("Address: location accessed in memory"));
-        ps[CS].setToolTip(new SimpleStringGetter("Byte Selects: each 0 disables access to one byte of the addressed word."));
+//        ps[CS].setToolTip(new SimpleStringGetter("Byte Selects: each 0 disables access to one byte of the addressed word."));
     }
 
     public void paintInstance(InstancePainter painter) {
@@ -137,7 +137,7 @@ abstract class Mem extends InstanceFactory {
         painter.drawPort(DATA, "D", Direction.WEST);
         painter.drawPort(ADDR, "A", Direction.EAST);
         g.setColor(Color.GRAY);
-        painter.drawPort(CS, "sel", Direction.SOUTH);
+//        painter.drawPort(CS, "sel", Direction.SOUTH);
     }
     
     File getCurrentImage(Instance instance) {

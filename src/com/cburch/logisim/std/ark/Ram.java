@@ -93,16 +93,16 @@ public class Ram extends Mem {
         Port[] ps = new Port[portCount];
 
         configureStandardPorts(instance, ps);
-        ps[OE]  = new Port(-50, 40, Port.INPUT, 1);
+        ps[OE]  = new Port(-100, 60, Port.INPUT, 1);
         ps[OE].setToolTip(new SimpleStringGetter("Load: if 1 load memory to output"));
-        ps[CLR] = new Port(-30, 40, Port.INPUT, 1);
+        ps[CLR] = new Port(-20, 60, Port.INPUT, 1);
         ps[CLR].setToolTip(new SimpleStringGetter("Clear: 1 resets contents to zero asynchronously"));
         if(!asynch) {
-            ps[CLK] = new Port(-70, 40, Port.INPUT, 1);
+            ps[CLK] = new Port(-70, 60, Port.INPUT, 1);
             ps[CLK].setToolTip(new SimpleStringGetter("Clock: memory value updates on rise from 0 to 1"));
         }
         if(separate) {
-            ps[WE] = new Port(-110, 40, Port.INPUT, 1);
+            ps[WE] = new Port(-120, 60, Port.INPUT, 1);
             ps[WE].setToolTip(new SimpleStringGetter("Store: if 1 store input to memory"));
             ps[DIN] = new Port(-140, 20, Port.INPUT, 32 /*DATA_ATTR*/);
             ps[DIN].setToolTip(new SimpleStringGetter("Input: value stored at address"));
@@ -179,20 +179,26 @@ public class Ram extends Mem {
         boolean separate = true; //busVal == null ? false : busVal.equals(BUS_SEPARATE);
 
         Value addrValue = state.getPort(ADDR);
-        Value maskValue = state.getPort(CS);
+//        Value maskValue = state.getPort(CS);
         boolean triggered = asynch || myState.setClock(state.getPort(CLK), StdAttr.TRIG_RISING);
-        boolean outputEnabled = state.getPort(OE) != Value.FALSE;
+        boolean outputEnabled = state.getPort(OE) != Value.FALSE; //XXX should be == Value.TRUE
+        boolean writeEnabled = state.getPort(WE) == Value.TRUE;
         boolean shouldClear = state.getPort(CLR) == Value.TRUE;
 
         if(shouldClear) {
             myState.getContents().clear();
         }
 
-	int mask = 0, bmask = 0;
-	if (maskValue.get(0) != Value.FALSE) { mask |= 0x1<<0; bmask |= 0xff<<0; }
-	if (maskValue.get(1) != Value.FALSE) { mask |= 0x1<<1; bmask |= 0xff<<8; }
-	if (maskValue.get(2) != Value.FALSE) { mask |= 0x1<<2; bmask |= 0xff<<16; }
-	if (maskValue.get(3) != Value.FALSE) { mask |= 0x1<<3; bmask |= 0xff<<24; }
+//	int mask = 0, bmask = 0;
+////	if (maskValue.get(0) != Value.FALSE) { mask |= 0x1<<0; bmask |= 0xff<<0; }
+////	if (maskValue.get(1) != Value.FALSE) { mask |= 0x1<<1; bmask |= 0xff<<8; }
+////	if (maskValue.get(2) != Value.FALSE) { mask |= 0x1<<2; bmask |= 0xff<<16; }
+////	if (maskValue.get(3) != Value.FALSE) { mask |= 0x1<<3; bmask |= 0xff<<24; }
+//	mask |= 0x1<<0; bmask |= 0xff<<0;
+//	mask |= 0x1<<1; bmask |= 0xff<<8;
+//	mask |= 0x1<<2; bmask |= 0xff<<16;
+//	mask |= 0x1<<3; bmask |= 0xff<<24;
+	int mask = 0xf, bmask = 0xffffffff;
 
         if (mask == 0) {
             myState.setCurrent(-1, 0);
@@ -200,10 +206,10 @@ public class Ram extends Mem {
             return;
         }
 
-        int addr = addrValue.toIntValue();
+        int addr = addrValue.toIntValue()>>2;
         if(!addrValue.isFullyDefined() || addr < 0)
             return;
-        if(addr != myState.getCurrent()) {
+        if(addr != myState.getCurrent() && (outputEnabled || writeEnabled)) {
             myState.setCurrent(addr, mask);
             myState.scrollToShow(addr);
         } else if (mask != myState.getCurrentMask()) {

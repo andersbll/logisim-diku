@@ -18,7 +18,7 @@ import com.cburch.logisim.util.StringUtil;
 import com.cburch.logisim.std.memory.*;
 
 class MemState implements InstanceData, Cloneable, HexModelListener {
-    private static final int ROWS = 4; // rows in memory display
+    private static final int ROWS = 8; // rows in memory display
 
     private static final int TABLE_WIDTH12 = 65; //80; // width of table for addr bits <= 12
     private static final int TABLE_WIDTH32 = 65; // width of table for addr bits > 12
@@ -223,7 +223,7 @@ class MemState implements InstanceData, Cloneable, HexModelListener {
             int yoffs = ENTRY_HEIGHT - 3;
             if(isValidAddr(addr)) {
                 g.setColor(Color.GRAY);
-                GraphicsUtil.drawText(g, font, StringUtil.toHexString(getAddrBits(), (int)addr),
+                GraphicsUtil.drawText(g, font, StringUtil.toHexString(getAddrBits(), (int)addr<<2),
                         x - 2, y + yoffs,
                         GraphicsUtil.H_RIGHT, GraphicsUtil.V_BASELINE);
             }
