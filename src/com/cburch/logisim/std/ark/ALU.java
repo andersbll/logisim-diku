@@ -26,10 +26,10 @@ public class ALU extends ManagedComponent
         super(loc, attrs, 5);
         setEnd(0, loc.translate(-30, -30), BITWIDTH_32, 1);
         setEnd(1, loc.translate(-30, 30), BITWIDTH_32, 1);
-        setEnd(2, loc.translate(-10, 40), BITWIDTH_4, 1);
-        setEnd(3, loc.translate(10, 30), BITWIDTH_5, 1);
-        setEnd(4, loc.translate(30, -20), BITWIDTH_1, 2);
-        setEnd(5, loc.translate(30, 0), BITWIDTH_32, 2);
+        setEnd(2, loc.translate(10, 30), BITWIDTH_4, 1);
+//        setEnd(3, loc.translate(10, 30), BITWIDTH_5, 1);
+        setEnd(3, loc.translate(30, -20), BITWIDTH_1, 2);
+        setEnd(4, loc.translate(30, 0), BITWIDTH_32, 2);
     }
 
     public ComponentFactory getFactory() { return factory; }
@@ -117,8 +117,8 @@ public class ALU extends ManagedComponent
         }
         Value out = Value.createKnown(BITWIDTH_32, ans);
         Value outZero = Value.createKnown(BITWIDTH_1, (ans==0) ? 1:0);
-        state.setValue(getEndLocation(4), outZero, this, 4);
-        state.setValue(getEndLocation(5), out, this, 5);
+        state.setValue(getEndLocation(3), outZero, this, 4);
+        state.setValue(getEndLocation(4), out, this, 5);
     }
 
     static void drawALUIcon(ComponentDrawContext context, int x, int y) {
@@ -157,9 +157,9 @@ public class ALU extends ManagedComponent
         context.drawPin(this, 0, "A", Direction.EAST);
         context.drawPin(this, 1, "B", Direction.EAST);
         context.drawPin(this, 2, "OP", Direction.SOUTH);
-        context.drawPin(this, 3, "SA", Direction.SOUTH);
-        context.drawPin(this, 4, "Zero", Direction.WEST);
-        context.drawPin(this, 5, "Res", Direction.WEST);
+//        context.drawPin(this, 3, "SA", Direction.SOUTH);
+        context.drawPin(this, 3, "Zero", Direction.WEST);
+        context.drawPin(this, 4, "Res", Direction.WEST);
     }
 
     private static final BitWidth BITWIDTH_32 = BitWidth.create(32);
