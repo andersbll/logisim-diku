@@ -66,7 +66,7 @@ public class Ram extends Mem {
     private static Object[][] logOptions = new Object[9][];
 
     public Ram() {
-        super("MIPS RAM", new SimpleStringGetter("MIPS RAM"), 3);
+        super("MIPS RAM", new SimpleStringGetter("Data memory"), 3);
         setInstanceLogger(Logger.class);
     }
     

@@ -14,7 +14,7 @@ public class ALU extends ManagedComponent
     private static class Factory extends AbstractComponentFactory {
         private Factory() { }
         public String getName() { return "Mips ALU"; }
-        public String getDisplayName() { return "Mips ALU"; }
+        public String getDisplayName() { return "ALU"; }
         public Component createComponent(Location loc, AttributeSet attrs) { return new ALU(loc, attrs); }
         public Bounds getOffsetBounds(AttributeSet attrs) { return Bounds.create(-30, -50, 60, 100); }
         public void paintIcon(ComponentDrawContext context, int x, int y, AttributeSet attrs) {

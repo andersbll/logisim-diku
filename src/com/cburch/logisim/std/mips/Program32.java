@@ -56,7 +56,7 @@ class Program32 extends ManagedComponent {
 	static final int CHIP_DEPTH = 20 * NUM_ROWS + 20;
 
     public static final ComponentFactory factory =
-		new ProgramFactory("MIPSProgramROM", "MIPS Program ROM", CHIP_WIDTH, CHIP_DEPTH);
+		new ProgramFactory("MIPSProgramROM", "Instruction memory", CHIP_WIDTH, CHIP_DEPTH);
 
 	static final BitWidth PC_WIDTH = BitWidth.create(32);
 	static final BitWidth OP_WIDTH = BitWidth.create(32);

@@ -60,7 +60,7 @@ class RegisterFile32 extends ManagedComponent {
     private static class Factory extends AbstractComponentFactory {
         private Factory() { }
         public String getName() { return "RegisterFile"; }
-        public String getDisplayName() { return "Register File"; }
+        public String getDisplayName() { return "Registers"; }
         public AttributeSet createAttributeSet() {
             return AttributeSets.fixedSet(ATTRIBUTES, new Object[] { StdAttr.TRIG_RISING });
         }
