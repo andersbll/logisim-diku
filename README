@@ -1,6 +1,6 @@
 Modified version of Logisim for the computer architecture class at the Department of Computer Science, University of Copenhagen. It includes MIPS specific components (ALU, register bank, program ROM, RAM) to facilitate the development of a MIPS CPU.
 
-MIPS components are from the course CS3410 at Cornell University.
+MIPS components are kindly provided by Kevin Walsh, Cornell University.
 http://www.cs.cornell.edu/courses/cs3410/2010sp/
 
 Logisim is written by Carl Burch.
