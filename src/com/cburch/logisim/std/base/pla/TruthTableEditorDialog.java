@@ -218,7 +218,7 @@ import java.awt.event.*;
 			
 			add(bitPanel);
 			
-			add(new JLabel("Kommentarer"));
+			add(new JLabel("Comments"));
 			add(Box.createRigidArea(new Dimension(30,15)));
 		}
 	}	
