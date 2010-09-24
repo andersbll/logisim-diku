@@ -326,7 +326,7 @@ class PLA extends InstanceFactory {
 			TruthTableRow row = tt.getRow(r);
 			//Set outBits accordingly
 			if(matchesIn(input, row)) {
-				for(int o=0; o < outWidth.getWidth(); o++) {
+				for(int o=0; o < row.getOutSize(); o++) {
 					if(row.getOutBit(o).getState() == BitState.State.connected) {
 						out = (out << 1) | 1;
 					}
