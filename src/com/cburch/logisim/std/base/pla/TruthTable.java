@@ -31,6 +31,8 @@ public class TruthTable  implements Serializable{
 		while(!rows.isEmpty()) rows.remove(0);
 		inSize = tt.getInSize();
 		outSize = tt.getOutSize();
+		tmpIns = tt.tmpIns;
+		tmpOuts = tt.tmpOuts;
 	
 		int rows = tt.getRowCount();
 		for(int r=0;r<rows;r++){

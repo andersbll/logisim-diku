@@ -125,10 +125,10 @@ class PLA extends InstanceFactory {
 				}
 				tt.addNewRow();
 				// Parse fields
-				for(int c=0;c<andBits.length();c++){
+				for(int c=0;c<andBits.length();c++) {
 					tt.setInBit(r, c, andBits.charAt(c));
 				}
-				for(int c=0;c<orBits.length();c++){
+				for(int c=0;c<orBits.length();c++) {
 					tt.setOutBit(r, c, orBits.charAt(c));
 				}
 				tt.getRow(r).setComment(comment);
@@ -224,12 +224,16 @@ class PLA extends InstanceFactory {
 		public <V> void setValue(Attribute<V> attr, V value) {
 			if (attr == ATTR_IN_WIDTH) {
 				widthIn = (BitWidth) value;
-				truthTable.tmpIns = widthIn.getWidth();
+				if(truthTable != null)
+					truthTable.tmpIns = widthIn.getWidth();
 			} else if (attr == ATTR_OUT_WIDTH) {
 				widthOut = (BitWidth) value;
-				truthTable.tmpOuts = widthOut.getWidth();
+				if(truthTable != null)
+					truthTable.tmpOuts = widthOut.getWidth();
 			} else if (attr == ATTR_TRUTH_TABLE) {
 				truthTable = (TruthTable) value;
+				truthTable.tmpOuts = widthOut.getWidth();
+				truthTable.tmpIns = widthIn.getWidth();
 			} else if (attr == StdAttr.LABEL) {
 				label = (String) value;
 			} else if (attr == StdAttr.LABEL_FONT) {
