@@ -1,8 +1,23 @@
-Modified version of Logisim for the computer architecture class at the Department of Computer Science, University of Copenhagen. It includes MIPS specific components (ALU, register bank, program ROM, RAM) to facilitate the development of a MIPS CPU.
+# About
+Logisim component library for the computer architecture class at the Department of Computer Science, University of Copenhagen (DIKU).
+The library contains components (ALU, register bank, program ROM, RAM, PLA) to facilitate the development of a MIPS microarchitecture.
 
-MIPS components are kindly provided by Kevin Walsh, Cornell University.
+The MIPS components are originally provided by Kevin Walsh, Cornell University.
 http://www.cs.cornell.edu/courses/cs3410/2010sp/
 
-Logisim is written by Carl Burch.
-http://ozark.hendrix.edu/~burch/logisim/download.html
+The PLA component is originally from KredsDesign by Rasmus Fonseca.
+http://image.diku.dk/kreds/
 
+Logisim is written by Carl Burch.
+http://ozark.hendrix.edu/~burch/logisim/
+
+
+# How-to
+1. Add the Logisim source to the classpath of the Java project.
+2. Build a JAR file containing MANIFEST.MF as manifest file.
+3. Load the JAR file from Logisim and voilà!
+
+
+# Authors
+Martin Dybdal, dybber@dybber.dk
+Anders Boesen Lindbo Larsen, abll@diku.dk
