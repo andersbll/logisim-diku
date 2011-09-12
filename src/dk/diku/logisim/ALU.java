@@ -44,83 +44,47 @@ public class ALU extends ManagedComponent
         switch(op)
         {
         case 0x0:
+        	// and
             ans = A & B;
             break;
         case 0x1:
+        	// or
             ans = A | B;
             break;
         case 0x2:
+        	// add
             ans = A + B;
-            if ( ((A > 0) &&  (B > 0 && ans < 0)) || (B < 0 && ans > 0) ) {
+            if ( (A >= 0 && B >= 0 && ans < 0) || (A < 0 && B < 0 && ans >= 0) ) {
             	overflow = 1;
             }
             break;
         case 0x6:
+        	// sub
             ans = A - B;
-            if ( ((A > 0) &&  (B < 0 && ans < 0)) || (B > 0 && ans > 0) ) {
+            if ( (A >= 0 && B < 0 && ans < 0) || (A < 0 && B >= 0 && ans >= 0) ) {
             	overflow = 1;
             }
             break;
         case 0x7:
+        	// slt
             ans = (A < B) ? 0x1 : 0x0;
             break;
         case 0xC:
-            ans = ~(A | B);
+        	// nor
+        	ans = ~(A | B);
             break;
-//        case 0x0:
-//        case 0x1:
-//            ans = B << shift;
-//            break;
-//
-//        case 0x2:
-//        case 0x3:
-//            ans = A + B;
-//            break;
-//
-//        case 0x4:
-//            ans = B >>> shift; // logical
-//            break;
-//
-//        case 0x5:
-//            ans = B >> shift; // arithmetic
-//            break;
-//
-//        case 0x6:
-//        case 0x7:
-//            ans = A - B;
-//            break;
-//
-//        case 0x8:
-//            ans = A & B;
-//            break;
-//
-//        case 0xA:
-//            ans = A | B;
-//            break;
-//
-//        case 0xC:
-//            ans = A ^ B;
-//            break;
-//
-//        case 0xE:
-//            ans = ~(A | B);
-//            break;
-//
-//        case 0x9:
-//	    ans = (A == B) ? 0x1 : 0x0;
-//	    break;
-//
-//        case 0xB:
-//	    ans = (A != B) ? 0x1 : 0x0;
-//	    break;
-//
-//        case 0xD:
-//	    ans = (A > 0) ? 0x1 : 0x0;
-//	    break;
-//
-//        case 0xF:
-//	    ans = (A <= 0) ? 0x1 : 0x0;
-//	    break;
+        case 0x8:
+        	// sll
+            ans = A << B;
+            break;
+        case 0x9:
+        	// srl
+            ans = A >>> B;
+            break;
+        case 0x10:
+        	// sra
+            ans = A >> B; 
+            break;
         }
         if(ans == 0) {
         	zero = 1;
@@ -170,7 +134,7 @@ public class ALU extends ManagedComponent
         context.drawPin(this, 1, "B", Direction.EAST);
         context.drawPin(this, 3, "Zero", Direction.WEST);
         context.drawPin(this, 4, "Res", Direction.WEST);
-        context.drawPin(this, 5, "OF ", Direction.WEST);
+        context.drawPin(this, 5, "  OF ", Direction.WEST);
         context.getGraphics().setColor(Color.GRAY);
         context.drawPin(this, 2, "Op", Direction.SOUTH);
         context.getGraphics().setColor(Color.BLACK);

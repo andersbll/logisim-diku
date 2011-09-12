@@ -47,28 +47,46 @@ public class ALU4Bit extends ManagedComponent
         switch(op)
         {
         case 0x0:
+        	// and
             ans = A & B;
             break;
         case 0x1:
+        	// or
             ans = A | B;
             break;
         case 0x2:
+        	// add
             ans = A + B;
             if(A+B < -8 || A+B > 7) {
             	overflow = 1;
             }
             break;
         case 0x6:
+        	// sub
             ans = A - B;
             if(A-B < -8 || A-B > 7) {
             	overflow = 1;
             }
             break;
         case 0x7:
+        	// slt
             ans = (A < B) ? 0x1 : 0x0;
             break;
         case 0xC:
-            ans = ~(A | B);
+        	// nor
+        	ans = ~(A | B);
+            break;
+        case 0x8:
+        	// sll
+            ans = A << B;
+            break;
+        case 0x9:
+        	// srl
+            ans = A >>> B;
+            break;
+        case 0x10:
+        	// sra
+            ans = A >> B; 
             break;
         }
         if(ans == 0) {
