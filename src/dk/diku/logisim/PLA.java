@@ -54,9 +54,9 @@ class PLA extends InstanceFactory {
 	private static final int OUT_PORT = 1;
 
 	private static final Attribute<BitWidth> ATTR_IN_WIDTH
-		= Attributes.forBitWidth("in_width", Strings.getter("plaWidthInAttr"));
+		= Attributes.forBitWidth("in_width", Strings.getter("Bit width in"));
 	private static final Attribute<BitWidth> ATTR_OUT_WIDTH
-		= Attributes.forBitWidth("out_width", Strings.getter("plaWidthOutAttr"));
+		= Attributes.forBitWidth("out_width", Strings.getter("Bit width out"));
 	private static Attribute<TruthTable> ATTR_TRUTH_TABLE = new TruthTableAttribute();
 
 	public static InstanceFactory FACTORY = new PLA();
@@ -72,7 +72,7 @@ class PLA extends InstanceFactory {
 	// singleton: the "contents: edit" line in the properties
 	private static class TruthTableAttribute extends Attribute<TruthTable> {
 		public TruthTableAttribute() { 
-			super("truth_table", Strings.getter("plaTruthTable"));
+			super("truth_table", Strings.getter("Truth Table"));
 		}
 		
 		@Override
@@ -85,7 +85,7 @@ class PLA extends InstanceFactory {
 
 		@Override
 		public String toDisplayString(TruthTable value) { 
-			return Strings.get("plaTruthTableEdit");
+			return Strings.get("(click to edit)");
 		}
 		@Override 
 		public String toStandardString(TruthTable tt) {
@@ -137,38 +137,13 @@ class PLA extends InstanceFactory {
 			}
 			return tt;
 		}
-
-		// @Override
-		// public String toStandardString(TruthTable tt) {
-		// 	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		// 	try {
-		// 		ObjectOutput out = new ObjectOutputStream(bos);
-		// 		out.writeObject(tt);
-		// 		out.close();
-		// 	} catch (IOException ioe) {}
-			
-		// 	byte[] buf = bos.toByteArray();
-		// 	String s = new sun.misc.BASE64Encoder().encode(buf); 
-		// 	return s;
-		// }
-
-		// @Override
-		// public TruthTable parse(String str) {
-		// 	TruthTable tt = null;
-		// 	try {
-		// 		byte[] buf = new sun.misc.BASE64Decoder().decodeBuffer(str); 
-		// 		ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(buf));
-		// 		tt = (TruthTable) in.readObject(); 
-		// 	} catch (Exception ioe) {}
-		// 	return tt;	
-		// }
 	}
 
 	private static class ContentsCell extends JLabel implements MouseListener {
 		TruthTable truthTable;
 		Frame parent;
 		ContentsCell(Frame parent, TruthTable truthTable) {
-			super(Strings.get("plaTruthTableEdit"));
+			super(Strings.get("(click to edit)"));
 			this.truthTable = truthTable;
 			this.parent = parent;
 			addMouseListener(this);
