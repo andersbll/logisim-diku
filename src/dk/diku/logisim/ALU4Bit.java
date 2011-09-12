@@ -78,15 +78,15 @@ public class ALU4Bit extends ManagedComponent
             break;
         case 0x8:
         	// sll
-            ans = A << B;
+            ans = B << A;
             break;
         case 0x9:
         	// srl
-            ans = A >>> B;
+            ans = B >>> A;
             break;
-        case 0x10:
+        case 0xA:
         	// sra
-            ans = A >> B; 
+            ans = B >> A; 
             break;
         }
         if(ans == 0) {
