@@ -1,6 +1,6 @@
 # About
 Logisim component library for the computer architecture class at the Department of Computer Science, University of Copenhagen (DIKU).
-The library contains components (ALU, register bank, program ROM, RAM, PLA) to facilitate the development of a MIPS microarchitecture.
+The library contains components (ALU, register bank, program ROM, RAM, PLA) to facilitate the development of a MIPS microarchitecture similar to that from "Computer Organization and Design - The Hardware/Software Interface, 4th ed." by David A. Patterson and John L. Hennessy.
 
 The MIPS components are originally provided by Kevin Walsh, Cornell University.
 http://www.cs.cornell.edu/courses/cs3410/2010sp/
