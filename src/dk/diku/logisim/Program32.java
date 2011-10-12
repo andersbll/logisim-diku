@@ -652,7 +652,7 @@ class Program32 extends ManagedComponent {
 		}
 	}
 
-	static Pattern pat_mem = Pattern.compile(_reg+","+_imm+"\\("+_reg+"\\)");
+	static Pattern pat_mem = Pattern.compile(_reg+","+_imm+"\\s*\\("+_reg+"\\)");
 	private static class Mem extends IType {
 		Mem(String name, int op) { super(name, op); }
 		int encode(int lineno, int addr, String args, HashMap sym) throws IOException {
